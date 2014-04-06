@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
 
-public class MyRectangle extends Rectangle2D.Float { 
+public class MyRectangle extends Polygon { 
    
    private static final Color GREEN = Color.GREEN;
    private static final Color ORANGE = Color.ORANGE;
@@ -13,7 +13,12 @@ public class MyRectangle extends Rectangle2D.Float {
    private AffineTransform trans  = new AffineTransform();
    private MyRectangle parent;
    private ArrayList<MyRectangle> children;
-
+   private Polygon body;
+   private int startX;
+   private int startY;
+   private int numSides;
+   private int bodyW;
+   private int bodyH;
    
    private static boolean debug = true;
 
@@ -53,12 +58,18 @@ public class MyRectangle extends Rectangle2D.Float {
     * http://java.sun.com/docs/books/tutorial/2d/display/transforming.html
     * Link to update
     */
-   public MyRectangle(AffineTransform t, int w, int h, Color c, MyRectangle p) {
-      super(0, 0, w, h);
+   public MyRectangle(AffineTransform t, int w, int h, Color c, MyRectangle p, int sides) {
+      body = new Polygon();
+	  bodyW = w;
+	  bodyH = h;
+	  startX = 0;
+	  startY = 0;
       trans = t;
       color = c;
       parent = p;
       children = new ArrayList<MyRectangle>();
+      numSides = sides;
+      makeShape(numSides);
    }
    
    public void addChild(MyRectangle r) {
@@ -68,14 +79,7 @@ public class MyRectangle extends Rectangle2D.Float {
 	   return trans;
    }
 
-  /* public MyRectangle getChild(int x, int y){
-   		/*for(int i = 0; i < children.size(); i++){
-   			if(children.get(i).contains(x,y)){
-   				return children.get(i);
-   			}
-   		}
-   		return children.get(0);
-   }*/
+  
    public MyRectangle getChild(){
   		/*for(int i = 0; i < children.size(); i++){
   			if(children.get(i).contains(x,y)){
@@ -84,7 +88,30 @@ public class MyRectangle extends Rectangle2D.Float {
   		}*/
   		return children.get(0);
   }
-
+  public void makeShape (int sides){//NOT INITIALIZE
+		if (sides == 4){
+			body.addPoint(startX,startY);
+			body.addPoint(startX,startY+bodyH);
+			body.addPoint(startX+bodyW, startY+bodyH);
+			body.addPoint(startX+bodyW,startY);
+			
+      	}
+		if (sides== 5){
+			for (int i = 0; i < sides; i++){
+				body.addPoint((int) ( startX + ( bodyW * Math.cos((i) * 2 * Math.PI / sides))),
+	       	 	(int) ( startY + (bodyH * Math.sin((i) * 2 * Math.PI / sides))));
+	       	 	}
+					}
+      	if (sides == 6){
+			//this is for extendable arm
+			body.addPoint(startX,startY);
+			body.addPoint(50,0);
+			body.addPoint(60,75);
+			body.addPoint(60,150);
+			body.addPoint(25,150);
+			body.addPoint(25,75);	
+   		}
+   }
 
    public void paint(Graphics2D g2) {
       
@@ -93,7 +120,8 @@ public class MyRectangle extends Rectangle2D.Float {
 
 
       g2.setColor(color);
-      g2.fill(this);
+      g2.drawPolygon(body);
+      g2.fillPolygon(body);
      
       /*
        * For debugging purpose: 
@@ -104,8 +132,8 @@ public class MyRectangle extends Rectangle2D.Float {
        */
       if (debug) {
          // left top corner of rectangle is (0, 0) (uncomment below to see)
-         int CS_x = (int)getX();  
-         int CS_y = (int)getY();
+         int CS_x = startX;
+         int CS_y = startY;
          //System.out.println("rect top left corner " + CS_x + " "+ CS_y);
 
          g2.setStroke(wideStroke);
