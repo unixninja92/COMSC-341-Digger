@@ -293,7 +293,7 @@ import java.io.*;
          
          if (selected == BASE) {
     		
-    		AffineTransform transTemp = displayRoot.getChild(0).getTrans();
+    		AffineTransform transTemp = base.getChild(0).getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     		}
