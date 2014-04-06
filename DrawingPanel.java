@@ -48,6 +48,8 @@ import java.io.*;
    // MyRectangle addChild() method is used to connect a parent to its children 
    // (one in our case but could be extended to many)
    private MyRectangle displayRoot = null;
+   private MyRectangle base = null;
+   private MyRectangle scalarArm = null;
 
    // Handle transformation on the entire object, i.e. the digger
    private AffineTransform objectTransform = new AffineTransform();
@@ -62,6 +64,11 @@ import java.io.*;
    // Provided code does not include checking if mouse click is inside a shape
    private static final int NONE = -2;
    private static final int ALL_OBJECT = -1;
+   private static final int BASE = ALL_OBJECT;
+   private static final int ROOT = ALL_OBJECT;
+   private static final int SCALE_ARM = 1;
+   private static final int BENT_ARM = 2;
+   private static final int BUCKET = 3;
    private int selected = NONE;
    private int lastX, lastY;
 
@@ -96,7 +103,7 @@ import java.io.*;
    public void init() {
       AffineTransform trans = new AffineTransform();
 
-      displayRoot =  new MyRectangle(trans, 100, 50, BLUE, null);
+      displayRoot =  new MyRectangle(trans, 200, 50, BLUE, null, 4);
 
      // AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
       AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
@@ -107,12 +114,16 @@ import java.io.*;
       // effect of rotating upward
       // (reverse of trigonometry circle you may be used to since y+ is pointing down on screen) 
       trans2.rotate(-Math.PI/2.0);
-      MyRectangle rect2 = new MyRectangle(trans2, 100, 50, RED, displayRoot);
-      displayRoot.addChild(rect2);   
+      base = new MyRectangle(trans2, 100, 60, RED, displayRoot, 4);
+      displayRoot.addChild(base);   
       AffineTransform trans3 = AffineTransform.getTranslateInstance(95.0, 0);
       trans3.rotate(Math.PI/8.0);
-      MyRectangle rect3 = new MyRectangle(trans3, 100, 50, BLUE, rect2);
-      rect2.addChild(rect3); 
+      MyRectangle scalarArm = new MyRectangle(trans3, 150, 50, BLUE, base, 4);
+      base.addChild(scalarArm); 
+      AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
+      //trans4.rotate(Math.PI/8.0);
+      MyRectangle bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6);
+      scalarArm.addChild(bentArm); 
    }
 
    public void paintComponent(Graphics g) {
@@ -262,36 +273,35 @@ import java.io.*;
    public void mouseDragged(MouseEvent e){
       if (isRecording)
          events.add(e);
-      /*
-      	if (selected == -3){
-      		System.out.println("Selected is -3, you hit the red square!");
-      		AffineTransform trans2 = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-      		if(lastY - e.getY() > 0){
-      			trans2.rotate(-Math.PI/8.0);
-      			objectTransform.concatenate(trans2);
-      		}
-      		if(lastY - e.getY() < 0){
-            //AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-            trans2.rotate(Math.PI/8.0);
-            objectTransform.concatenate(trans2);
-         }
-      	}*/
-      	if (selected == ALL_OBJECT) {
-      		//AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-      		AffineTransform transTemp = displayRoot.getChild().getTrans();
-      		if(lastY - e.getY() > 0){
-      			transTemp.rotate(-Math.PI/90.0);
-      		}
-      		if(lastY - e.getY() < 0){
-            //AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-            transTemp.rotate(Math.PI/90.0);
+     
+      	if (selected == BASE || selected == ROOT) {
+      	        AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
+      	         /*if(lastY - e.getY() > 0){
+      	            trans.translate(lastX,lastY);
+      	            objectTransform.concatenate(trans);
+      	         }
+      	         if(lastY - e.getY() < 0){*/
+      	        	trans.translate(e.getX(),e.getY());
+      	            objectTransform.concatenate(trans);
+      	         //}
            
          }
-      	//objectTransform.concatenate(transTemp);
-         repaint();
-         lastX = e.getX();
-         lastY = e.getY();
-      }
+        if (selected == SCALE_ARM) {
+    		//make the scaling keyboard controlled
+    		AffineTransform transTemp = base.getChild().getTrans();
+    		if(lastY - e.getY() > 0){
+    			transTemp.scale(1.05,1);
+    		}
+    		if(lastY - e.getY() < 0){
+    			//AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
+    			transTemp.scale(.95,1);
+            }
+        }
+ 
+        repaint();
+        lastX = e.getX();
+        lastY = e.getY();
+      
    }
 
    /*
@@ -308,4 +318,5 @@ import java.io.*;
    public void mouseEntered(MouseEvent e){}
    
 }
+
 
