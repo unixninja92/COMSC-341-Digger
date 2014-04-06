@@ -122,8 +122,12 @@ import java.io.*;
       base.addChild(scalarArm); 
       AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
       //trans4.rotate(Math.PI/8.0);
-      MyRectangle bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6);
+      //THE width and  height is currently preset so it doesn't matter what you pass it
+      MyRectangle bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6); 
       scalarArm.addChild(bentArm); 
+      //AffineTransform trans5 = AffineTransform.getTranslateInstance(100.0, 20.0);
+      //MyRectangle bucket = new MyRectangle(trans5, 50, 50, BLUE, bentArm, 5);
+      //bentArm.addChild(bucket);
    }
 
    public void paintComponent(Graphics g) {
