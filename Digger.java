@@ -21,8 +21,8 @@ import javax.swing.*;
  */
 public class Digger extends JFrame {
    
-   public static final int FRAME_WIDTH = 500;
-   public static final int FRAME_HEIGHT = 500;
+   public static final int FRAME_WIDTH = 900;
+   public static final int FRAME_HEIGHT = 600;
 
 
    private DrawingPanel panel;
