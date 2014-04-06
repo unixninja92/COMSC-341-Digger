@@ -125,7 +125,8 @@ import java.io.*;
       //THE width and  height is currently preset so it doesn't matter what you pass it
       MyRectangle bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6); 
       scalarArm.addChild(bentArm); 
-      AffineTransform trans5 = AffineTransform.getTranslateInstance(100.0, 20.0);
+      AffineTransform trans5 = AffineTransform.getTranslateInstance(60.0, 150.0);
+      trans5.rotate(-Math.PI);
       MyRectangle bucket = new MyRectangle(trans5, 50, 50, BLUE, bentArm, 5);
       bentArm.addChild(bucket);
    }
@@ -293,7 +294,7 @@ import java.io.*;
          
          if (selected == BASE) {
     		
-    		AffineTransform transTemp = base.getChild(0).getTrans();
+    		AffineTransform transTemp = bentArm.getChild(0).getTrans();//testing the rotation
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     		}
