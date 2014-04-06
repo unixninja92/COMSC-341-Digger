@@ -279,17 +279,31 @@ import java.io.*;
          events.add(e);
      
       	if (selected == BASE || selected == ROOT) {
-      	        AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
+      	      //  AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
       	         /*if(lastY - e.getY() > 0){
       	            trans.translate(lastX,lastY);
       	            objectTransform.concatenate(trans);
       	         }
       	         if(lastY - e.getY() < 0){*/
-      	        	trans.translate(e.getX(),e.getY());
-      	            objectTransform.concatenate(trans);
+      	        //	trans.translate(e.getX(),e.getY());
+      	        //    objectTransform.concatenate(trans);
       	         //}
            
          }
+         
+         if (selected == BASE) {
+    		
+    		AffineTransform transTemp = displayRoot.getChild(0).getTrans();
+    		if(lastY - e.getY() > 0){
+    			transTemp.rotate(-Math.PI/90.0);
+    		}
+    		if(lastY - e.getY() < 0){
+         
+          transTemp.rotate(Math.PI/90.0);
+          repaint();
+    		}
+    	}
+    	
         if (selected == SCALE_ARM) {
     		//make the scaling keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
