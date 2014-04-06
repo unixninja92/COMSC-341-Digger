@@ -20,6 +20,9 @@ public class MyRectangle extends Polygon {
    private int bodyW;
    private int bodyH;
    
+   
+   private boolean curve = false; 
+   
    private static boolean debug = true;
 
    public static void setDebug(boolean b) {
@@ -97,9 +100,10 @@ public class MyRectangle extends Polygon {
 			
       	}
 		if (sides== 5){
-			for (int i = 0; i < sides; i++){
-				body.addPoint((int) ( startX + ( bodyW * Math.cos((i) * 2 * Math.PI / sides))),
-	       	 	(int) ( startY + (bodyH * Math.sin((i) * 2 * Math.PI / sides))));
+			// for (int i = 0; i < sides; i++){
+			// 	body.addPoint((int) ( startX + ( bodyW * Math.cos((i) * 2 * Math.PI / sides))),
+	  //     	 	(int) ( startY + (bodyH * Math.sin((i) * 2 * Math.PI / sides))));
+	       	 	curve = true;
 	       	 	}
 					}
       	if (sides == 6){
@@ -120,8 +124,16 @@ public class MyRectangle extends Polygon {
 
 
       g2.setColor(color);
-      g2.drawPolygon(body);
+       if(!curve){
       g2.fillPolygon(body);
+      }
+      else{
+    	  g2.setColor(Color.green);
+      g2.fill(new Arc2D.Double(0, 0, 50, 100, 0, 180, Arc2D.PIE));   
+      }
+      
+     // g2.drawPolygon(body);
+     
      
       /*
        * For debugging purpose: 
