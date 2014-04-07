@@ -290,6 +290,7 @@ import java.io.*;
       
 
         selectedRect = displayRoot.selectedShape(pInv);
+         selectedRect.selected=true;
         if(selectedRect != null){
           selected = selectedRect.objectType;
           System.out.println("slected: "+selected);
