@@ -174,6 +174,11 @@ public class MyRectangle extends Polygon {
     	  g2.setColor(Color.green);
         g2.fill(new Arc2D.Double(0, 0, 50, 100, 0, 180, Arc2D.PIE));   
       }
+      
+       g2.setColor(Color.DARK_GRAY);
+ 	  g2.setStroke( new BasicStroke(2) );
+ 	  g2.draw(body);
+ 	  
        if(selected){ 
     	     	  g2.setColor(Color.black);
   	       	  g2.drawPolygon(body);
