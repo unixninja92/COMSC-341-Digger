@@ -169,7 +169,9 @@ import java.io.*;
 
       
       g2.transform(objectTransform);
+     drawBottle(g2);
      drawWindow(g2);
+     
 
       // Start painting with displayRoot, which inside its paint
       // method paints its own children (single child in our case)
@@ -215,6 +217,23 @@ import java.io.*;
 	      g2.fill( new Ellipse2D.Double(165,WHEEL+10,40,40) );
 
 	   }
+	   
+	   private void drawBottle(Graphics2D g2){
+		 Polygon poly = new Polygon();
+
+		  poly.addPoint(400,80);
+		  poly.addPoint(400,90);
+		  poly.addPoint(390,100);
+		  poly.addPoint(390,110);
+		 
+		  poly.addPoint(415,110);
+		  poly.addPoint(415,100);
+		  poly.addPoint(405,90);
+		  poly.addPoint(405,80);
+		 
+		 g2.setColor(Color.white);
+		 g2.fill(poly);
+	 }
 
    /*
     * Create new list of events when recording is started
