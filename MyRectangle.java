@@ -199,13 +199,8 @@ public class MyRectangle extends Polygon {
          int CS_y = startY;
          //System.out.println("rect top left corner " + CS_x + " "+ CS_y);
 
-         g2.setStroke(wideStroke);
-         // y-axis in green
-         g2.setColor(GREEN);
-         g2.drawLine(CS_x, CS_y+COORD_LENGTH, CS_x, CS_y-COORD_LENGTH);
-         // x-axis in orange 
-         g2.setColor(ORANGE);
-         g2.drawLine(CS_x+COORD_LENGTH, CS_y, CS_x-COORD_LENGTH, CS_y);
+         g2.setColor(Color.ORANGE);
+         g2.fill( new Ellipse2D.Double(CS_x,CS_y,10,10) );
       }
 
       /*
