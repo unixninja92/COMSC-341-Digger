@@ -93,6 +93,8 @@ import java.io.*;
       addMouseMotionListener(this);
       addMouseListener(this);
       addKeyListener(this);
+      requestFocus();
+      setFocusable(true);
       init();
       objectTransform.translate(Digger.FRAME_WIDTH/3, 2*Digger.FRAME_HEIGHT/3);//100.0, 100.0);
    }
@@ -388,6 +390,7 @@ public void keyPressed(KeyEvent e) {
 		  AffineTransform transTemp = scalarArm.getTrans();
 		  AffineTransform limitTemp = scalarArm.getChild().getTrans();
 		  if(e.getKeyChar() == 'l'){
+        System.out.println("Pressed l");
 			  transTemp.scale(1.05,1);
 			  limitTemp.scale(.95, 1);
 		  }
