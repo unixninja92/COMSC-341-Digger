@@ -140,7 +140,7 @@ public class MyRectangle extends Polygon {
         if(children.size() != 0){
           for(MyRectangle r: children){
             System.out.println(r.objectType);
-            MyRectangle c = r.selectedShape(point);
+            MyRectangle c = r.selectedShape(pInv);
             if(c != null)
               return c;
           }
