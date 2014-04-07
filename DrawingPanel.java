@@ -292,8 +292,9 @@ import java.io.*;
       
 
         selectedRect = displayRoot.selectedShape(pInv);
-        selectedRect.selected=true;
+        
         if(selectedRect != null){
+          selectedRect.selected=true;
           selected = selectedRect.objectType;
        
           System.out.println("slected: "+selected);
