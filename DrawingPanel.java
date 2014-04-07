@@ -53,6 +53,8 @@ import java.io.*;
    private MyRectangle bentArm = null;
    private MyRectangle bucket = null;
 
+   private MyRectangle selectedRect = null;
+
    // Handle transformation on the entire object, i.e. the digger
    private AffineTransform objectTransform = new AffineTransform();
 
@@ -260,6 +262,8 @@ import java.io.*;
       if (isRecording)
          events.add(e);
 
+       selectedRect = displayRoot.selectedShape(e.getX(), e.getY());
+
       if (e.getButton() == MouseEvent.BUTTON1) {
          lastX = e.getX();
          lastY = e.getY();
@@ -331,6 +335,7 @@ import java.io.*;
     */
    public void mouseReleased(MouseEvent e) {
       selected = NONE;
+      selectedRect = null;
    }
 
    public void mouseMoved(MouseEvent e){}
