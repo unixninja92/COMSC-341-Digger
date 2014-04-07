@@ -64,6 +64,8 @@ import java.io.*;
    // do your recording from the initial digger location.)
    private AffineTransform oldObjectTransform;
    
+   private int frameNumber; // For animation, increases by 1 in each frame.
+   
    // Used for simple selection
    // Click with button1 anywhere on JComponent selects the entire object (simple minded)
    // Provided code does not include checking if mouse click is inside a shape
@@ -99,6 +101,14 @@ import java.io.*;
       setFocusable(true);
       init();
       objectTransform.translate(Digger.FRAME_WIDTH/3, 2*Digger.FRAME_HEIGHT/3);//100.0, 100.0);
+      
+       new Timer(60,new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+             frameNumber++;
+             repaint();
+          }
+       }).start();
+       addMouseListener(this);
    }
 
    /*
@@ -191,6 +201,16 @@ import java.io.*;
        g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
       drawWheel(g2);
       
+       AffineTransform current = g2.getTransform();
+     try {
+		AffineTransform inv = current.createInverse();
+		g2.transform(inv);
+	} catch (NoninvertibleTransformException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	drawClouds(g2);
+      
       g2.dispose(); //release the copy's resources
    }
 
@@ -222,7 +242,7 @@ import java.io.*;
 	      g2.fill( new Ellipse2D.Double(15,WHEEL-25,80,80) );
 	      g2.fill( new Ellipse2D.Double(155,WHEEL,60,60) );
 
-	      g2.setColor(Color.YELLOW);
+	      g2.setColor(Color.ORANGE);
 	      g2.fill( new Ellipse2D.Double(25,WHEEL-15,60,60) );
 	      g2.fill( new Ellipse2D.Double(165,WHEEL+10,40,40) );
 
@@ -244,6 +264,25 @@ import java.io.*;
 		 g2.setColor(Color.white);
 		 g2.fill(poly);
 	 }
+	 
+	  public void drawClouds(Graphics2D g2){
+	   g2.setColor(Color.WHITE);
+	   g2.translate(-50+30*(frameNumber % 300) / 10, 0);
+	   g2.fill( new Ellipse2D.Double(5,10,10,10) );
+	   g2.fill( new Ellipse2D.Double(10,5,15,15) );
+	   g2.fill( new Ellipse2D.Double(20,10,10,10) );
+	   
+	   g2.fill( new Ellipse2D.Double(100,20,10,10) );
+	   g2.fill( new Ellipse2D.Double(105,15,15,15) );
+	   g2.fill( new Ellipse2D.Double(115,20,10,10) );
+	   
+	   g2.fill( new Ellipse2D.Double(500,10,10,10) );
+	   g2.fill( new Ellipse2D.Double(505,5,15,15) );
+	   g2.fill( new Ellipse2D.Double(515,10,10,10) );
+	   
+	   
+   }
+   
 
    /*
     * Create new list of events when recording is started
