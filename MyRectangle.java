@@ -19,6 +19,8 @@ public class MyRectangle extends Polygon {
    private int numSides;
    private int bodyW;
    private int bodyH;
+
+   int objectType;
    
    
    private boolean curve = false; 
@@ -61,7 +63,7 @@ public class MyRectangle extends Polygon {
     * http://java.sun.com/docs/books/tutorial/2d/display/transforming.html
     * Link to update
     */
-   public MyRectangle(AffineTransform t, int w, int h, Color c, MyRectangle p, int sides) {
+   public MyRectangle(AffineTransform t, int w, int h, Color c, MyRectangle p, int sides, int ot) {
       body = new Polygon();
 	  bodyW = w;
 	  bodyH = h;
@@ -72,6 +74,7 @@ public class MyRectangle extends Polygon {
       parent = p;
       children = new ArrayList<MyRectangle>();
       numSides = sides;
+      objectType = ot;
       makeShape(numSides);
    }
    

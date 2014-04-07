@@ -107,7 +107,7 @@ import java.io.*;
    public void init() {
       AffineTransform trans = new AffineTransform();
 
-      displayRoot =  new MyRectangle(trans, 200, 50, BLUE, null, 4);
+      displayRoot =  new MyRectangle(trans, 200, 50, BLUE, null, 4, ROOT);
 
      // AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
       AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
@@ -118,20 +118,20 @@ import java.io.*;
       // effect of rotating upward
       // (reverse of trigonometry circle you may be used to since y+ is pointing down on screen) 
       trans2.rotate(-Math.PI/2.0);
-      base = new MyRectangle(trans2, 100, 60, RED, displayRoot, 4);
+      base = new MyRectangle(trans2, 100, 60, RED, displayRoot, 4, BASE);
       displayRoot.addChild(base);   
       AffineTransform trans3 = AffineTransform.getTranslateInstance(95.0, 0);
       trans3.rotate(Math.PI/8.0);
-      scalarArm = new MyRectangle(trans3, 150, 50, BLUE, base, 4);
+      scalarArm = new MyRectangle(trans3, 150, 50, BLUE, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
       AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
       //trans4.rotate(Math.PI/8.0);
       //THE width and  height is currently preset so it doesn't matter what you pass it
-      bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6); 
+      bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6, BENT_ARM); 
       scalarArm.addChild(bentArm); 
       AffineTransform trans5 = AffineTransform.getTranslateInstance(60.0, 150.0);
       trans5.rotate(-Math.PI);
-      bucket = new MyRectangle(trans5, 50, 50, BLUE, bentArm, 5);
+      bucket = new MyRectangle(trans5, 50, 50, BLUE, bentArm, 5, BUCKET);
       bentArm.addChild(bucket);
    }
 
