@@ -258,7 +258,7 @@ import java.io.*;
     * is selected
     */
    public void mousePressed(MouseEvent e) {
-      
+      Point2D pInv;
       if (isRecording)
          events.add(e);
 
@@ -266,7 +266,17 @@ import java.io.*;
 
         System.out.println("x:" +e.getX()+" y:"+e.getY());
       if (e.getButton() == MouseEvent.BUTTON1) {
-        selectedRect = displayRoot.selectedShape(e.getX(), e.getY());
+        
+        try {
+          pInv = objectTransform.inverseTransform(new Point2D.Double(e.getX(), e.getY()), null);
+        } catch (NoninvertibleTransformException er) {
+          er.printStackTrace();
+          return;
+        }
+
+      
+
+        selectedRect = displayRoot.selectedShape(pInv);
         if(selectedRect != null){
           selected = selectedRect.objectType;
           System.out.println("slected: "+selected);
