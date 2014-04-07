@@ -107,12 +107,12 @@ import java.io.*;
       rotated = false;
 
       
-       new Timer(60,new ActionListener() {
+     /*  new Timer(60,new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
              frameNumber++;
              repaint();
           }
-       }).start();
+       }).start();*/
        addMouseListener(this);
    }
 
@@ -428,8 +428,16 @@ import java.io.*;
    public void mouseDragged(MouseEvent e){
       if (isRecording)
          events.add(e);
-     
-        
+      
+      Point2D pInv;
+
+        try {
+          pInv = objectTransform.inverseTransform(new Point2D.Double(bottle.getBounds2D().getCenterX(),bottle.getBounds2D().getCenterX()), null);
+        } catch (NoninvertibleTransformException er) {
+          er.printStackTrace();
+          return;
+        }
+
       if (selected == BASE || selected == ROOT) {
          AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
          objectTransform.concatenate(trans);
@@ -461,14 +469,14 @@ import java.io.*;
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     			//I believe for this code to work the bottle bounds must be pushed through the inverse trans
-    			if(bucket.getBody().intersects(bottle.getBounds2D())){
+    			if(bucket.getBody().contains(pInv)){
     	    		   //bottle.reset();
     	    		   System.out.println("You grabbed bottle!");
     	    	  }
     		}
     		if(lastY - e.getY() < 0){
     			transTemp.rotate(Math.PI/90.0);
-    			if(bucket.getBody().intersects(bottle.getBounds2D())){
+    			if(bucket.getBody().contains(pInv)){
  	    		   //bottle.reset();
  	    		   System.out.println("You grabbed bottle!");
     			}
