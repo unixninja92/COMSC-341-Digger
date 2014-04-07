@@ -5,6 +5,7 @@ import java.util.*;
 import javax.swing.*;
 import java.io.*;
 
+
 /*
  * Class extending a JComponent 
  * - to draw the hierarchical geometry of a digger and 
@@ -35,7 +36,7 @@ import java.io.*;
  
  */
 
- class DrawingPanel extends JComponent implements MouseListener, MouseMotionListener {
+ class DrawingPanel extends JComponent implements MouseListener, MouseMotionListener, KeyListener {
     
    private static final String RECORD_FILE = "events";
 
@@ -82,7 +83,7 @@ import java.io.*;
    // Record some mouse events, may want to also record more according to
    // user interaction choices/definitions
    private ArrayList<MouseEvent> events;
-
+   
    private static RenderingHints rh = new RenderingHints(
 		RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -91,6 +92,7 @@ import java.io.*;
       setBackground(BG);
       addMouseMotionListener(this);
       addMouseListener(this);
+      addKeyListener(this);
       init();
       objectTransform.translate(Digger.FRAME_WIDTH/3, 2*Digger.FRAME_HEIGHT/3);//100.0, 100.0);
    }
@@ -290,9 +292,10 @@ import java.io.*;
       
 
         selectedRect = displayRoot.selectedShape(pInv);
-         selectedRect.selected=true;
+        selectedRect.selected=true;
         if(selectedRect != null){
           selected = selectedRect.objectType;
+       
           System.out.println("slected: "+selected);
         }
         else{
@@ -323,16 +326,14 @@ import java.io.*;
       	       objectTransform.concatenate(trans);
          }
          
-         if (selected == BASE) {
+         if (selected == BENT_ARM) {
     		
     		AffineTransform transTemp = bentArm.getChild(0).getTrans();//testing the rotation
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     		}
     		if(lastY - e.getY() < 0){
-         
-          transTemp.rotate(Math.PI/90.0);
-          repaint();
+    			transTemp.rotate(Math.PI/90.0);
     		}
     	}
     	
@@ -340,12 +341,11 @@ import java.io.*;
     		//make the scaling keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
     		if(lastY - e.getY() > 0){
-    			transTemp.scale(1.05,1);
+    			transTemp.rotate(-Math.PI/90.0);
     		}
     		if(lastY - e.getY() < 0){
-    			//AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-    			transTemp.scale(.95,1);
-            }
+    			transTemp.rotate(Math.PI/90.0);
+    		}
         }
  
         repaint();
@@ -367,6 +367,35 @@ import java.io.*;
    public void mouseClicked(MouseEvent e){}
    public void mouseExited(MouseEvent e){}
    public void mouseEntered(MouseEvent e){}
+
+@Override
+public void keyPressed(KeyEvent e) {
+	System.out.println(e.getKeyChar());  
+	System.out.println("slected: "+selected);
+	  if(selected == SCALE_ARM){
+		  AffineTransform transTemp = base.getChild().getTrans();
+		  if(e.getKeyChar() == 'l'){
+			  transTemp.scale(1.05,1);
+		  }
+		  else if(e.getKeyChar() == 'k'){
+			  transTemp.scale(.95,1);
+		  }
+		  repaint();
+	  }	
+	
+}
+
+@Override
+public void keyReleased(KeyEvent e) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void keyTyped(KeyEvent e) {
+	// TODO Auto-generated method stub
+	
+}
    
 }
 
