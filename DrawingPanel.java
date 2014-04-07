@@ -181,7 +181,7 @@ import java.io.*;
      
       
       g2.transform(objectTransform);
-      drawBottle(g2);
+      drawWindow(g2);
      
       // Start painting with displayRoot, which inside its paint
       // method paints its own children (single child in our case)
