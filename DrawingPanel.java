@@ -111,7 +111,7 @@ import java.io.*;
    public void init() {
       AffineTransform trans = new AffineTransform();
 
-      displayRoot =  new MyRectangle(trans, 200, 100, RED, null, 4, ROOT);
+      displayRoot =  new MyRectangle(trans, 200, 100, RED, null, 5, ROOT);
 
      // AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
       AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
@@ -135,7 +135,7 @@ import java.io.*;
       scalarArm.addChild(bentArm); 
       AffineTransform trans5 = AffineTransform.getTranslateInstance(40.0, 150.0);
      // trans5.rotate(-Math.PI);
-      bucket = new MyRectangle(trans5, 50, 50, RED, bentArm, 5, BUCKET);
+      bucket = new MyRectangle(trans5, 50, 50, RED, bentArm, 0, BUCKET);
       bentArm.addChild(bucket);
    }
 
