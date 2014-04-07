@@ -122,22 +122,24 @@ public class MyRectangle extends Polygon {
    }
 
    public MyRectangle selectedShape(int eX, int eY) {
-    AffineTransform inv = null;
+      AffineTransform inv = null;
 
-    try {
-      inv = trans.createInverse();
-    } catch (NoninvertibleTransformException e) {
-      return null;
-    }
+      try {
+        inv = trans.createInverse();
+      } catch (NoninvertibleTransformException e) {
+        e.printStackTrace();
+        return null;
+      }
 
-    Point2D pInv = inv.transform(new Point2D.Double(eX, eY), null);
-
-
+      Point2D pInv = trans.transform(new Point2D.Double(eX, eY), null);
+      System.out.println("Transform point " + pInv.getX() + " "+ pInv.getY());
+      System.out.println(body.getBounds());
       if (body.contains(pInv))
         return this;
       else {
         if(children.size() != 0){
           for(MyRectangle r: children){
+            System.out.println(r.objectType);
             MyRectangle c = r.selectedShape(eX, eY);
             if(c != null)
               return c;

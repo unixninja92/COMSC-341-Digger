@@ -264,12 +264,15 @@ import java.io.*;
 
 
 
+        System.out.println("x:" +e.getX()+" y:"+e.getY());
       if (e.getButton() == MouseEvent.BUTTON1) {
         selectedRect = displayRoot.selectedShape(e.getX(), e.getY());
-
-        selected = selectedRect.objectType;
-         // lastX = e.getX();
-         // lastY = e.getY();
+        if(selectedRect != null){
+          selected = selectedRect.objectType;
+          System.out.println("slected: "+selected);
+        }
+         lastX = e.getX();
+         lastY = e.getY();
          // if(displayRoot.getChild(lastX,lastY) !=null){
         	//  selected = -3;
          // }
@@ -289,15 +292,15 @@ import java.io.*;
          events.add(e);
      
       	if (selected == BASE || selected == ROOT) {
-      	      //  AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-      	         /*if(lastY - e.getY() > 0){
+      	      AffineTransform trans = base.getTrans();
+      	         if(lastY - e.getY() > 0){
       	            trans.translate(lastX,lastY);
       	            objectTransform.concatenate(trans);
       	         }
-      	         if(lastY - e.getY() < 0){*/
-      	        //	trans.translate(e.getX(),e.getY());
-      	        //    objectTransform.concatenate(trans);
-      	         //}
+      	         if(lastY - e.getY() < 0){
+      	        	trans.translate(e.getX(),e.getY());
+      	           objectTransform.concatenate(trans);
+      	         }
            
          }
          
