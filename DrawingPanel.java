@@ -42,7 +42,7 @@ import java.io.*;
 
    private final static Color BG = Color.WHITE;
    private final static Color BLUE = Color.BLUE;
-   private final static Color RED = new Color(131,3,0);//maroon
+  private final static Color YELLOW = Color.yellow;
    
    // The root of the model (the only shape in the hierarchy without parent)
    // MyRectangle constructor sets the parent of the shape (null for root)
@@ -76,6 +76,8 @@ import java.io.*;
    private static final int BUCKET = 3;
    private int selected = NONE;
    private int lastX, lastY;
+
+  private static final int WHEEL=70;
 
    // Used for recording and replay
    private ObjectOutputStream out;
@@ -111,7 +113,8 @@ import java.io.*;
    public void init() {
       AffineTransform trans = new AffineTransform();
 
-      displayRoot =  new MyRectangle(trans, 200, 100, RED, null, 5, ROOT);
+      displayRoot =  new MyRectangle(trans, 200, 100, YELLOW, null, 5, ROOT);
+      
 
      // AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
       AffineTransform trans2 = AffineTransform.getTranslateInstance(75.0, 25.0); //ANCHOR POINT
@@ -122,20 +125,20 @@ import java.io.*;
       // effect of rotating upward
       // (reverse of trigonometry circle you may be used to since y+ is pointing down on screen) 
       trans2.rotate(-Math.PI/2.0);
-      base = new MyRectangle(trans2, 100, 40, RED, displayRoot, 4, BASE);
+      base = new MyRectangle(trans2, 100, 40, YELLOW, displayRoot, 4, BASE);
       displayRoot.addChild(base);   
       AffineTransform trans3 = AffineTransform.getTranslateInstance(95.0, 0);
       trans3.rotate(Math.PI/8.0);
-      scalarArm = new MyRectangle(trans3, 150, 40, RED, base, 4, SCALE_ARM);
+      scalarArm = new MyRectangle(trans3, 150, 40, YELLOW, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
       AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
       //trans4.rotate(Math.PI/8.0);
       //THE width and  height is currently preset so it doesn't matter what you pass it
-      bentArm = new MyRectangle(trans4, 0, 0, RED, scalarArm, 6, BENT_ARM); 
+      bentArm = new MyRectangle(trans4, 0, 0, YELLOW, scalarArm, 6, BENT_ARM); 
       scalarArm.addChild(bentArm); 
       AffineTransform trans5 = AffineTransform.getTranslateInstance(40.0, 150.0);
      // trans5.rotate(-Math.PI);
-      bucket = new MyRectangle(trans5, 50, 50, RED, bentArm, 0, BUCKET);
+      bucket = new MyRectangle(trans5, 50, 50, Color.LIGHT_GRAY, bentArm, 0, BUCKET);
       bentArm.addChild(bucket);
    }
 
@@ -179,11 +182,17 @@ import java.io.*;
    }
 
 	 private void drawWheel(Graphics2D g2) {
-	      g2.setColor(Color.BLACK);
-	      g2.fill( new Ellipse2D.Double(displayRoot.getTrans().getScaleX(),100,40,40) );
-	      g2.fill( new Ellipse2D.Double(displayRoot.getTrans().getScaleX()*160,100,40,40) );
+	     g2.setColor(new Color(251,193,115));
+		 g2.fill( new Ellipse2D.Double(20,WHEEL,WHEEL,WHEEL) );
+	      g2.fill( new Ellipse2D.Double(150,WHEEL,WHEEL,WHEEL) );
+		 g2.setColor(Color.BLACK);
+	      g2.fill( new Ellipse2D.Double(25,WHEEL,60,60) );
+	      g2.fill( new Ellipse2D.Double(155,WHEEL,60,60) );
 	      
-	    
+	      g2.setColor(Color.YELLOW);
+	      g2.fill( new Ellipse2D.Double(35,WHEEL+10,40,40) );
+	      g2.fill( new Ellipse2D.Double(165,WHEEL+10,40,40) );
+	     
 	   }
 
    /*
