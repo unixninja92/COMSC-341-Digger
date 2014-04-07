@@ -65,10 +65,10 @@ public class MyRectangle extends Polygon {
     */
    public MyRectangle(AffineTransform t, int w, int h, Color c, MyRectangle p, int sides, int ot) {
       body = new Polygon();
-	  bodyW = w;
-	  bodyH = h;
-	  startX = 0;
-	  startY = 0;
+	    bodyW = w;
+	    bodyH = h;
+	    startX = 0;
+	    startY = 0;
       trans = t;
       color = c;
       parent = p;
@@ -96,9 +96,9 @@ public class MyRectangle extends Polygon {
    }
 
   public void makeShape (int sides){//NOT INITIALIZE
-	if(sides==0){
+  	if(sides==0){
 			curve = true;
-	}
+  	}
 	  if (sides == 4){
 			body.addPoint(startX,startY);
 			
@@ -119,9 +119,9 @@ public class MyRectangle extends Polygon {
 
 		
 	       	 	
-	       	 	}
+ 	 	}
 
-      	if (sides == 6){
+  	if (sides == 6){
 			//this is for extendable arm
 			body.addPoint(startX,startY);
 			body.addPoint(50,0);
@@ -129,10 +129,10 @@ public class MyRectangle extends Polygon {
 			body.addPoint(60,150);
 			body.addPoint(25,150);
 			body.addPoint(25,75);	
-   		}
-   }
+ 		}
+  }
 
-   public MyRectangle selectedShape(Point2D point) {
+  public MyRectangle selectedShape(Point2D point) {
       AffineTransform inv = null;
 
       try {
@@ -167,17 +167,17 @@ public class MyRectangle extends Polygon {
 
 
       g2.setColor(color);
-       if(!curve){
-      g2.fillPolygon(body);
+      if(!curve){
+        g2.fillPolygon(body);
       }
       else{
     	  g2.setColor(Color.green);
-      g2.fill(new Arc2D.Double(0, 0, 50, 100, 0, 180, Arc2D.PIE));   
+        g2.fill(new Arc2D.Double(0, 0, 50, 100, 0, 180, Arc2D.PIE));   
       }
        if(selected){ 
     	     	  g2.setColor(Color.black);
-    	       	  g2.drawPolygon(body);
-    	      	  selected=false;
+  	       	  g2.drawPolygon(body);
+  	      	  selected=false;
        }
      // g2.drawPolygon(body);
      
