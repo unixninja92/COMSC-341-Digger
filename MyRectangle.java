@@ -96,20 +96,31 @@ public class MyRectangle extends Polygon {
    }
 
   public void makeShape (int sides){//NOT INITIALIZE
-		if (sides == 4){
+	if(sides==0){
+			curve = true;
+	}
+	  if (sides == 4){
 			body.addPoint(startX,startY);
+			
 			body.addPoint(startX,startY+bodyH);
 			body.addPoint(startX+bodyW, startY+bodyH);
 			body.addPoint(startX+bodyW,startY);
-			
+
       	}
 		if (sides== 5){
-			// for (int i = 0; i < sides; i++){
-			// 	body.addPoint((int) ( startX + ( bodyW * Math.cos((i) * 2 * Math.PI / sides))),
-	  //     	 	(int) ( startY + (bodyH * Math.sin((i) * 2 * Math.PI / sides))));
-	       	 	curve = true;
+			body.addPoint(startX,startY);
+			body.addPoint(startX,startY+bodyH);
+			body.addPoint(startX+bodyW,startY+bodyH);
+			body.addPoint(startX+bodyW,+bodyH/2);
+			
+			body.addPoint(startX+bodyW/2, startY);
+			
+			
+
+		
+	       	 	
 	       	 	}
-					
+
       	if (sides == 6){
 			//this is for extendable arm
 			body.addPoint(startX,startY);
