@@ -126,7 +126,7 @@ import java.io.*;
       trans3.rotate(Math.PI/8.0);
       scalarArm = new MyRectangle(trans3, 150, 50, BLUE, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
-      AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
+      AffineTransform trans4 = AffineTransform.getTranslateInstance(130.0, 0);
       //trans4.rotate(Math.PI/8.0);
       //THE width and  height is currently preset so it doesn't matter what you pass it
       bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6, BENT_ARM); 
@@ -296,7 +296,7 @@ import java.io.*;
         if(selectedRect != null){
           selected = selectedRect.objectType;
        
-          System.out.println("slected: "+selected);
+          System.out.println("selected: "+selected);
         }
         else{
           selected = NONE;
@@ -373,12 +373,15 @@ public void keyPressed(KeyEvent e) {
 	System.out.println(e.getKeyChar());  
 	System.out.println("slected: "+selected);
 	  if(selected == SCALE_ARM){
-		  AffineTransform transTemp = base.getChild().getTrans();
+		  AffineTransform transTemp = scalarArm.getTrans();
+		  AffineTransform limitTemp = scalarArm.getChild().getTrans();
 		  if(e.getKeyChar() == 'l'){
 			  transTemp.scale(1.05,1);
+			  limitTemp.scale(.95, 1);
 		  }
 		  else if(e.getKeyChar() == 'k'){
 			  transTemp.scale(.95,1);
+			  limitTemp.scale(1.05, 1);
 		  }
 		  repaint();
 	  }	
