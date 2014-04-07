@@ -173,8 +173,10 @@ public class MyRectangle extends Polygon {
    	  g2.draw(body);
       }
       else{
-    	  g2.setColor(Color.DARK_GRAY);
-        g2.fill(new Arc2D.Double(0, 0, 80, 120, 0, 180, Arc2D.PIE));   
+	g2.setColor(Color.DARK_GRAY);
+        g2.fill(new Arc2D.Double(-5,-5, 80, 120, 0, 180, Arc2D.PIE));
+        g2.setStroke( new BasicStroke(20) );
+        g2.drawLine(0, 0, 10, 10); 
       }
       
  	  
