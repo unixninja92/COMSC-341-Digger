@@ -292,9 +292,9 @@ import java.io.*;
       
 
         selectedRect = displayRoot.selectedShape(pInv);
-        
         if(selectedRect != null){
-          selectedRect.selected=true;
+        	
+            selectedRect.selected=true;
           selected = selectedRect.objectType;
        
           System.out.println("selected: "+selected);
@@ -329,7 +329,7 @@ import java.io.*;
          
          if (selected == BENT_ARM) {
     		
-    		AffineTransform transTemp = bentArm.getChild(0).getTrans();//testing the rotation
+    		AffineTransform transTemp = bentArm.getTrans();//testing the rotation
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     		}
@@ -341,6 +341,17 @@ import java.io.*;
         if (selected == SCALE_ARM) {
     		//make the scaling keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
+    		if(lastY - e.getY() > 0){
+    			transTemp.rotate(-Math.PI/90.0);
+    		}
+    		if(lastY - e.getY() < 0){
+    			transTemp.rotate(Math.PI/90.0);
+    		}
+        }
+    	
+        if (selected == BUCKET) {
+    		//make the scaling keyboard controlled
+    		AffineTransform transTemp = bucket.getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     		}
