@@ -54,6 +54,7 @@ import java.io.*;
    private MyRectangle bentArm = null;
    private MyRectangle bucket = null;
 
+   private Polygon bottle;
    private MyRectangle selectedRect = null;
 
    // Handle transformation on the entire object, i.e. the digger
@@ -253,20 +254,20 @@ import java.io.*;
 	   }
 	   
 	   private void drawBottle(Graphics2D g2){
-		 Polygon poly = new Polygon();
+		 bottle = new Polygon();
 
-		  poly.addPoint(400,80);
-		  poly.addPoint(400,90);
-		  poly.addPoint(390,100);
-		  poly.addPoint(390,110);
+		  bottle.addPoint(400,80);
+		  bottle.addPoint(400,90);
+		  bottle.addPoint(390,100);
+		  bottle.addPoint(390,110);
 		 
-		  poly.addPoint(415,110);
-		  poly.addPoint(415,100);
-		  poly.addPoint(405,90);
-		  poly.addPoint(405,80);
+		  bottle.addPoint(415,110);
+		  bottle.addPoint(415,100);
+		  bottle.addPoint(405,90);
+		  bottle.addPoint(405,80);
 		 
 		 g2.setColor(Color.white);
-		 g2.fill(poly);
+		 g2.fill(bottle);
 	 }
 	 
 	  public void drawClouds(Graphics2D g2){
@@ -428,12 +429,12 @@ import java.io.*;
       if (isRecording)
          events.add(e);
      
-    	if (selected == BASE || selected == ROOT) {
+        
+      if (selected == BASE || selected == ROOT) {
          AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
          objectTransform.concatenate(trans);
       }
-       
-      if (selected == BENT_ARM) {
+      else if (selected == BENT_ARM) {
     		AffineTransform transTemp = bentArm.getTrans();//testing the rotation
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
@@ -443,8 +444,8 @@ import java.io.*;
     		}
     	}
   	
-      if (selected == SCALE_ARM) {
-  		//make the scaling keyboard controlled
+      else if (selected == SCALE_ARM) {
+  		//scalnig keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
@@ -454,15 +455,27 @@ import java.io.*;
     		}
       }
   	
-      if (selected == BUCKET) {
+      else if (selected == BUCKET) {
   		//make the scaling keyboard controlled
     		AffineTransform transTemp = bucket.getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
+    			//I believe for this code to work the bottle bounds must be pushed through the inverse trans
+    			if(bucket.getBody().intersects(bottle.getBounds2D())){
+    	    		   //bottle.reset();
+    	    		   System.out.println("You grabbed bottle!");
+    	    	  }
     		}
     		if(lastY - e.getY() < 0){
     			transTemp.rotate(Math.PI/90.0);
+    			if(bucket.getBody().intersects(bottle.getBounds2D())){
+ 	    		   //bottle.reset();
+ 	    		   System.out.println("You grabbed bottle!");
+    			}
     		}
+    	  
+      }else{
+    	  selected = NONE;
       }
 
       repaint();
