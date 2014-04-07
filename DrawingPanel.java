@@ -169,7 +169,7 @@ import java.io.*;
 
       
       g2.transform(objectTransform);
-     
+     drawWindow(g2);
 
       // Start painting with displayRoot, which inside its paint
       // method paints its own children (single child in our case)
@@ -178,7 +178,7 @@ import java.io.*;
       }
        g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
       drawWheel(g2);
-      drawWindow(g2);
+      
       g2.dispose(); //release the copy's resources
    }
 
@@ -198,12 +198,8 @@ import java.io.*;
 	  g2.setStroke( new BasicStroke(3) );
 	  g2.draw(poly);
 	  
-	  g2.setColor(Color.DARK_GRAY);
 	  g2.setStroke( new BasicStroke(10) );
-	  g2.drawLine(15,-WHEEL,95,-WHEEL);
-	  
 	  g2.setColor(YELLOW);
-	 
 	  g2.drawLine(20,-WHEEL*2,80,-WHEEL*2);
 	  
    }
