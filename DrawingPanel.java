@@ -63,6 +63,8 @@ import java.io.*;
    // (Not possible across program execution as not stored in text file:
    // do your recording from the initial digger location.)
    private AffineTransform oldObjectTransform;
+
+   private boolean rotated;
    
    // Used for simple selection
    // Click with button1 anywhere on JComponent selects the entire object (simple minded)
@@ -99,6 +101,7 @@ import java.io.*;
       setFocusable(true);
       init();
       objectTransform.translate(Digger.FRAME_WIDTH/3, 2*Digger.FRAME_HEIGHT/3);//100.0, 100.0);
+      rotated = false;
    }
 
    /*
@@ -409,7 +412,15 @@ import java.io.*;
    }
 
   public void mouseMoved(MouseEvent e){}
-  public void mouseClicked(MouseEvent e){}
+  public void mouseClicked(MouseEvent e){
+    if(e.getClickCount() == 2){
+      System.out.println("double click");
+      AffineTransform trans = new AffineTransform(new double[] {-1.0,0.0,0.0,1.0});
+      objectTransform.concatenate(trans); 
+      rotated = !rotated;
+      repaint();
+    }
+  }
   public void mouseExited(MouseEvent e){}
   public void mouseEntered(MouseEvent e){}
 
