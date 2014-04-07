@@ -84,13 +84,13 @@ public class MyRectangle extends Polygon {
 
   
    public MyRectangle getChild(){
-  		/*for(int i = 0; i < children.size(); i++){
-  			if(children.get(i).contains(x,y)){
-  				return children.get(i);
-  			}
-  		}*/
   		return children.get(0);
-  }
+   }
+
+   public MyRectangle getChild(int i){
+      return children.get(i);
+   }
+
   public void makeShape (int sides){//NOT INITIALIZE
 		if (sides == 4){
 			body.addPoint(startX,startY);
