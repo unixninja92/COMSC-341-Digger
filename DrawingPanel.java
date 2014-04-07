@@ -318,16 +318,8 @@ import java.io.*;
          events.add(e);
      
       	if (selected == BASE || selected == ROOT) {
-      	      AffineTransform trans = base.getTrans();
-      	         if(lastY - e.getY() > 0){
-      	            trans.translate(lastX,lastY);
-      	            objectTransform.concatenate(trans);
-      	         }
-      	         if(lastY - e.getY() < 0){
-      	        	trans.translate(e.getX(),e.getY());
-      	           objectTransform.concatenate(trans);
-      	         }
-           
+      		AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
+      	       objectTransform.concatenate(trans);
          }
          
          if (selected == BASE) {
