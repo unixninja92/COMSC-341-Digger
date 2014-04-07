@@ -262,16 +262,19 @@ import java.io.*;
       if (isRecording)
          events.add(e);
 
-       selectedRect = displayRoot.selectedShape(e.getX(), e.getY());
+
 
       if (e.getButton() == MouseEvent.BUTTON1) {
-         lastX = e.getX();
-         lastY = e.getY();
-         /*if(displayRoot.getChild(lastX,lastY) !=null){
-        	 selected = -3;
-         }
-         else{*/
-         selected = ALL_OBJECT;
+        selectedRect = displayRoot.selectedShape(e.getX(), e.getY());
+
+        selected = selectedRect.objectType;
+         // lastX = e.getX();
+         // lastY = e.getY();
+         // if(displayRoot.getChild(lastX,lastY) !=null){
+        	//  selected = -3;
+         // }
+         // else{
+         // selected = ALL_OBJECT;
       }
    }
    //public void findChild(int x, int y){}
