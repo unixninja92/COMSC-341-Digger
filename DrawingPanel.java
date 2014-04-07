@@ -168,11 +168,21 @@ import java.io.*;
       g2.fill(new Arc2D.Double(400, 80, 100, 150, 0, 180, Arc2D.PIE));
 
       
-      g2.transform(objectTransform);
-     drawBottle(g2);
-     drawWindow(g2);
+       AffineTransform t = AffineTransform.getTranslateInstance(0, 100);
+	  g2.transform(t);
+	  drawBottle(g2);
+	  
+	 try {
+			g2.transform(t.createInverse());
+		} catch (NoninvertibleTransformException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
      
-
+      
+      g2.transform(objectTransform);
+      drawBottle(g2);
+     
       // Start painting with displayRoot, which inside its paint
       // method paints its own children (single child in our case)
       if (displayRoot != null) {
