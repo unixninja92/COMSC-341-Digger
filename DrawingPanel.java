@@ -329,7 +329,7 @@ import java.io.*;
          
          if (selected == BENT_ARM) {
     		
-    		AffineTransform transTemp = scalarArm.getTrans();//testing the rotation
+    		AffineTransform transTemp = bentArm.getTrans();//testing the rotation
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     		}
