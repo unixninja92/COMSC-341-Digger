@@ -122,11 +122,11 @@ import java.io.*;
       // effect of rotating upward
       // (reverse of trigonometry circle you may be used to since y+ is pointing down on screen) 
       trans2.rotate(-Math.PI/2.0);
-      base = new MyRectangle(trans2, 100, 60, RED, displayRoot, 4, BASE);
+      base = new MyRectangle(trans2, 100, 40, RED, displayRoot, 4, BASE);
       displayRoot.addChild(base);   
       AffineTransform trans3 = AffineTransform.getTranslateInstance(95.0, 0);
       trans3.rotate(Math.PI/8.0);
-      scalarArm = new MyRectangle(trans3, 150, 50, RED, base, 4, SCALE_ARM);
+      scalarArm = new MyRectangle(trans3, 150, 40, RED, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
       AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
       //trans4.rotate(Math.PI/8.0);
