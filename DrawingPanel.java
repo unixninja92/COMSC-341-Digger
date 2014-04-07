@@ -131,9 +131,9 @@ import java.io.*;
       trans3.rotate(Math.PI/8.0);
       scalarArm = new MyRectangle(trans3, 150, 40, YELLOW, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
-      AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
+      AffineTransform trans4 = AffineTransform.getTranslateInstance(135.0, 0);
       //trans4.rotate(Math.PI/8.0);
-      //THE width and  height is currently preset so it doesn't matter what you pass it
+      //THE width and  height is currently preset so it doesn't matter wat you pass it
       bentArm = new MyRectangle(trans4, 0, 0, YELLOW, scalarArm, 6, BENT_ARM); 
       scalarArm.addChild(bentArm); 
       AffineTransform trans5 = AffineTransform.getTranslateInstance(40.0, 150.0);
@@ -345,12 +345,7 @@ import java.io.*;
          // selected = ALL_OBJECT;
       }
    }
-   //public void findChild(int x, int y){}
-   /*
-    * When the main object is selected (see above) dragging the mouse 
-    * drags the main object by updating the transformation applied to 
-    * it (objectTransform)
-    */
+   
    
    public void mouseDragged(MouseEvent e){
       if (isRecording)
