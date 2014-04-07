@@ -78,6 +78,7 @@ public class MyRectangle extends Polygon {
    public void addChild(MyRectangle r) {
       children.add(r);
    }
+
    public AffineTransform getTrans(){
 	   return trans;
    }
@@ -115,6 +116,21 @@ public class MyRectangle extends Polygon {
 			body.addPoint(25,150);
 			body.addPoint(25,75);	
    		}
+   }
+
+   public MyRectangle selectedShape(int eX, int eY) {
+      if (body.contains(eX, eY))
+        return this;
+      else {
+        if(children.size() != 0){
+          for(MyRectangle r: children){
+            MyRectangle c = r.selectedShape(eX, eY);
+            if(c != null)
+              return c;
+          }
+        }
+      }
+      return null;
    }
 
    public void paint(Graphics2D g2) {
