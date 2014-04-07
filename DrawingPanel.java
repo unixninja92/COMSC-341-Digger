@@ -306,7 +306,7 @@ import java.io.*;
         if(selectedRect != null){
         	
             selectedRect.selected=true;
-          selected = selectedRect.objectType;
+       //   selected = selectedRect.objectType;
        
           System.out.println("selected: "+selected);
         }
