@@ -131,7 +131,7 @@ public class MyRectangle extends Polygon {
         return null;
       }
 
-      Point2D pInv = trans.transform(new Point2D.Double(eX, eY), null);
+      Point2D pInv = inv.transform(new Point2D.Double(eX, eY), null);
       System.out.println("Transform point " + pInv.getX() + " "+ pInv.getY());
       System.out.println(body.getBounds());
       if (body.contains(pInv))
