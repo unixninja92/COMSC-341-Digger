@@ -105,7 +105,7 @@ public class MyRectangle extends Polygon {
 	  //     	 	(int) ( startY + (bodyH * Math.sin((i) * 2 * Math.PI / sides))));
 	       	 	curve = true;
 	       	 	}
-					}
+					
       	if (sides == 6){
 			//this is for extendable arm
 			body.addPoint(startX,startY);
