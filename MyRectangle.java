@@ -19,6 +19,8 @@ public class MyRectangle extends Polygon {
    private int numSides;
    private int bodyW;
    private int bodyH;
+   
+     public boolean selected=false;
 
    int objectType;
    
@@ -164,6 +166,11 @@ public class MyRectangle extends Polygon {
       g2.fill(new Arc2D.Double(0, 0, 50, 100, 0, 180, Arc2D.PIE));   
       }
       
+       if(selected){ 
+    	  g2.setColor(Color.black);
+    	  g2.drawPolygon(body);
+    	  selected=false;
+      }
      // g2.drawPolygon(body);
      
      
