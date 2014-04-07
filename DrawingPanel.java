@@ -186,8 +186,8 @@ import java.io.*;
 	  Polygon poly = new Polygon();
 	  
 	  poly.addPoint(20,-WHEEL*2);
-	  poly.addPoint(0,10);
-	  poly.addPoint(120,10);
+	  poly.addPoint(0,40);
+	  poly.addPoint(180,40);
 	  poly.addPoint(80,-WHEEL*2);
 	
 	  g2.setColor(Color.LIGHT_GRAY);
