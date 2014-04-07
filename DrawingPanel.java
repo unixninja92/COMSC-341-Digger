@@ -174,8 +174,17 @@ import java.io.*;
          displayRoot.paint(g2); 
       }
       g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
+      drawWheel(g2);
       g2.dispose(); //release the copy's resources
    }
+
+	 private void drawWheel(Graphics2D g2) {
+	      g2.setColor(Color.BLACK);
+	      g2.fill( new Ellipse2D.Double(displayRoot.getTrans().getScaleX(),100,40,40) );
+	      g2.fill( new Ellipse2D.Double(displayRoot.getTrans().getScaleX()*160,100,40,40) );
+	      
+	    
+	   }
 
    /*
     * Create new list of events when recording is started
@@ -290,8 +299,8 @@ import java.io.*;
 
         selectedRect = displayRoot.selectedShape(pInv);
         if(selectedRect != null){
-        	selectedRect.selected=true;
-          selected = selectedRect.objectType;
+          selectedRect.selected=true;
+       //   selected = selectedRect.objectType;
           System.out.println("selected: "+selected);
         }
         else{
