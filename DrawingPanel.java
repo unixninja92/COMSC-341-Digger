@@ -277,7 +277,7 @@ import java.io.*;
 
 
 
-        System.out.println("x:" +e.getX()+" y:"+e.getY());
+        // System.out.println("x:" +e.getX()+" y:"+e.getY());
       if (e.getButton() == MouseEvent.BUTTON1) {
         
         try {
@@ -293,6 +293,9 @@ import java.io.*;
         if(selectedRect != null){
           selected = selectedRect.objectType;
           System.out.println("slected: "+selected);
+        }
+        else{
+          selected = NONE;
         }
          lastX = e.getX();
          lastY = e.getY();
