@@ -119,7 +119,18 @@ public class MyRectangle extends Polygon {
    }
 
    public MyRectangle selectedShape(int eX, int eY) {
-      if (body.contains(eX, eY))
+    AffineTransform inv = null;
+
+    try {
+      inv = trans.createInverse();
+    } catch (NoninvertibleTransformException e) {
+      return null;
+    }
+
+    Point2D pInv = inv.transform(new Point2D.Double(eX, eY), null);
+
+
+      if (body.contains(pInv))
         return this;
       else {
         if(children.size() != 0){
