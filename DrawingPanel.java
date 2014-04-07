@@ -176,23 +176,48 @@ import java.io.*;
       if (displayRoot != null) {
          displayRoot.paint(g2); 
       }
-      g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
+       g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
       drawWheel(g2);
+      drawWindow(g2);
       g2.dispose(); //release the copy's resources
    }
 
+   private void drawWindow(Graphics2D g2){
+	  Polygon poly = new Polygon();
+	  
+	  poly.addPoint(20,-WHEEL*2);
+	  poly.addPoint(0,10);
+	  poly.addPoint(120,10);
+	  poly.addPoint(80,-WHEEL*2);
+	
+	  g2.setColor(Color.LIGHT_GRAY);
+	  
+	  g2.fill(poly);
+	  
+	  g2.setColor(Color.DARK_GRAY);
+	  g2.setStroke( new BasicStroke(3) );
+	  g2.draw(poly);
+	  
+	  g2.setColor(Color.DARK_GRAY);
+	  g2.setStroke( new BasicStroke(10) );
+	  g2.drawLine(15,-WHEEL,95,-WHEEL);
+	  
+	  g2.setColor(YELLOW);
+	 
+	  g2.drawLine(20,-WHEEL*2,80,-WHEEL*2);
+	  
+   }
+   
 	 private void drawWheel(Graphics2D g2) {
-	     g2.setColor(new Color(251,193,115));
-		 g2.fill( new Ellipse2D.Double(20,WHEEL,WHEEL,WHEEL) );
-	      g2.fill( new Ellipse2D.Double(150,WHEEL,WHEEL,WHEEL) );
+
 		 g2.setColor(Color.BLACK);
-	      g2.fill( new Ellipse2D.Double(25,WHEEL,60,60) );
+	      g2.fill( new Ellipse2D.Double(15,WHEEL-25,80,80) );
 	      g2.fill( new Ellipse2D.Double(155,WHEEL,60,60) );
-	      
+
 	      g2.setColor(Color.YELLOW);
-	      g2.fill( new Ellipse2D.Double(35,WHEEL+10,40,40) );
+	      g2.fill( new Ellipse2D.Double(25,WHEEL-15,60,60) );
 	      g2.fill( new Ellipse2D.Double(165,WHEEL+10,40,40) );
-	     
+
 	   }
 
    /*
