@@ -171,8 +171,7 @@ import java.io.*;
       // Start painting with displayRoot, which inside its paint
       // method paints its own children (single child in our case)
       if (displayRoot != null) {
-         displayRoot.paint(g2);
-         
+         displayRoot.paint(g2); 
       }
       g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
       g2.dispose(); //release the copy's resources
@@ -219,22 +218,22 @@ import java.io.*;
       // However the replay is not done on the EDT (see below println)
       // (Enclosing replay() call in another Thread remove the interruption capabilities)
       new Thread( new Runnable() { 
-	public void run() {
+	       public void run() {
 
-          try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(RECORD_FILE)); 
-            ArrayList<MouseEvent> ev = (ArrayList<MouseEvent>) in.readObject();
-            in.close(); 
-            System.out.println("Is EDT? " + SwingUtilities.isEventDispatchThread());
-   	    replay(ev);
+            try {
+              ObjectInputStream in = new ObjectInputStream(new FileInputStream(RECORD_FILE)); 
+              ArrayList<MouseEvent> ev = (ArrayList<MouseEvent>) in.readObject();
+              in.close(); 
+              System.out.println("Is EDT? " + SwingUtilities.isEventDispatchThread());
+     	        replay(ev);
 
-          } catch (IOException exp) {
-            System.out.println("Unable to open file: " + RECORD_FILE); 
-          } catch (ClassNotFoundException exp2) {
-            System.out.println(exp2); 
-          }
+            } catch (IOException exp) {
+              System.out.println("Unable to open file: " + RECORD_FILE); 
+            } catch (ClassNotFoundException exp2) {
+              System.out.println(exp2); 
+            }
 
-	}
+	       }
       }).start(); 
 
    }
@@ -251,21 +250,21 @@ import java.io.*;
              case MouseEvent.MOUSE_DRAGGED:
                   mouseDragged(e);
                   break;
-            }
+          }
 
-            // While a call to repaint() exists in mouseDragged(e), it is
-            // essential to force a synchronous paint by calling paintImmediately
-            // (with repaint() only paint requests are coalesced: teleportation effect)
-             
-            paintImmediately(this.getBounds());
+          // While a call to repaint() exists in mouseDragged(e), it is
+          // essential to force a synchronous paint by calling paintImmediately
+          // (with repaint() only paint requests are coalesced: teleportation effect)
+           
+          paintImmediately(this.getBounds());
 
-            // To slow down by a constant time the re-execution of events.
-            // Would be better to use event timestamps to sleep appropriately but not required. 
-            try { 
-	      Thread.sleep(40);  
-	    } catch(InterruptedException ex) {
-	      Thread.currentThread().interrupt();
-	    }  
+          // To slow down by a constant time the re-execution of events.
+          // Would be better to use event timestamps to sleep appropriately but not required. 
+          try { 
+    	      Thread.sleep(40);  
+    	    } catch(InterruptedException ex) {
+    	      Thread.currentThread().interrupt();
+    	    }  
       } 
    }
    
@@ -279,8 +278,6 @@ import java.io.*;
       if (isRecording)
          events.add(e);
 
-
-
         // System.out.println("x:" +e.getX()+" y:"+e.getY());
       if (e.getButton() == MouseEvent.BUTTON1) {
         
@@ -291,21 +288,17 @@ import java.io.*;
           return;
         }
 
-      
-
         selectedRect = displayRoot.selectedShape(pInv);
         if(selectedRect != null){
-        	
-            selectedRect.selected=true;
+        	selectedRect.selected=true;
           selected = selectedRect.objectType;
-       
           System.out.println("selected: "+selected);
         }
         else{
           selected = NONE;
         }
-         lastX = e.getX();
-         lastY = e.getY();
+        lastX = e.getX();
+        lastY = e.getY();
          // if(displayRoot.getChild(lastX,lastY) !=null){
         	//  selected = -3;
          // }
@@ -324,13 +317,12 @@ import java.io.*;
       if (isRecording)
          events.add(e);
      
-      	if (selected == BASE || selected == ROOT) {
-      		AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
-      	       objectTransform.concatenate(trans);
-         }
-         
-         if (selected == BENT_ARM) {
-    		
+    	if (selected == BASE || selected == ROOT) {
+         AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
+         objectTransform.concatenate(trans);
+      }
+       
+      if (selected == BENT_ARM) {
     		AffineTransform transTemp = bentArm.getTrans();//testing the rotation
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
@@ -339,9 +331,9 @@ import java.io.*;
     			transTemp.rotate(Math.PI/90.0);
     		}
     	}
-    	
-        if (selected == SCALE_ARM) {
-    		//make the scaling keyboard controlled
+  	
+      if (selected == SCALE_ARM) {
+  		//make the scaling keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
@@ -349,10 +341,10 @@ import java.io.*;
     		if(lastY - e.getY() < 0){
     			transTemp.rotate(Math.PI/90.0);
     		}
-        }
-    	
-        if (selected == BUCKET) {
-    		//make the scaling keyboard controlled
+      }
+  	
+      if (selected == BUCKET) {
+  		//make the scaling keyboard controlled
     		AffineTransform transTemp = bucket.getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
@@ -360,11 +352,11 @@ import java.io.*;
     		if(lastY - e.getY() < 0){
     			transTemp.rotate(Math.PI/90.0);
     		}
-        }
- 
-        repaint();
-        lastX = e.getX();
-        lastY = e.getY();
+      }
+
+      repaint();
+      lastX = e.getX();
+      lastY = e.getY();
       
    }
 
@@ -377,43 +369,43 @@ import java.io.*;
       selectedRect = null;
    }
 
-   public void mouseMoved(MouseEvent e){}
-   public void mouseClicked(MouseEvent e){}
-   public void mouseExited(MouseEvent e){}
-   public void mouseEntered(MouseEvent e){}
+  public void mouseMoved(MouseEvent e){}
+  public void mouseClicked(MouseEvent e){}
+  public void mouseExited(MouseEvent e){}
+  public void mouseEntered(MouseEvent e){}
 
-@Override
-public void keyPressed(KeyEvent e) {
-	System.out.println(e.getKeyChar());  
-	System.out.println("slected: "+selected);
-	  if(selected == SCALE_ARM){
-		  AffineTransform transTemp = scalarArm.getTrans();
-		  AffineTransform limitTemp = scalarArm.getChild().getTrans();
-		  if(e.getKeyChar() == 'l'){
-        System.out.println("Pressed l");
-			  transTemp.scale(1.05,1);
-			  limitTemp.scale(.95, 1);
-		  }
-		  else if(e.getKeyChar() == 'k'){
-			  transTemp.scale(.95,1);
-			  limitTemp.scale(1.05, 1);
-		  }
-		  repaint();
-	  }	
-	
-}
+  @Override
+  public void keyPressed(KeyEvent e) {
+  	System.out.println(e.getKeyChar());  
+  	System.out.println("slected: "+selected);
+  	  if(selected == SCALE_ARM){
+  		  AffineTransform transTemp = scalarArm.getTrans();
+  		  AffineTransform limitTemp = scalarArm.getChild().getTrans();
+  		  if(e.getKeyChar() == 'l'){
+          System.out.println("Pressed l");
+  			  transTemp.scale(1.05,1);
+  			  limitTemp.scale(.95, 1);
+  		  }
+  		  else if(e.getKeyChar() == 'k'){
+  			  transTemp.scale(.95,1);
+  			  limitTemp.scale(1.05, 1);
+  		  }
+  		  repaint();
+  	  }	
+  	
+  }
 
-@Override
-public void keyReleased(KeyEvent e) {
-	// TODO Auto-generated method stub
-	
-}
+  @Override
+  public void keyReleased(KeyEvent e) {
+  	// TODO Auto-generated method stub
+  	
+  }
 
-@Override
-public void keyTyped(KeyEvent e) {
-	// TODO Auto-generated method stub
-	
-}
+  @Override
+  public void keyTyped(KeyEvent e) {
+  	// TODO Auto-generated method stub
+  	
+  }
    
 }
 
