@@ -148,6 +148,19 @@ import java.io.*;
 
       g2.clearRect(0, 0, getWidth(), getHeight());
       
+      g2.clearRect(0, 0, getWidth(), getHeight());
+      g2.setColor( new Color(200,200,255) );
+      g2.fillRect(0,0,900,600);  // fills the sky, behind the dunes
+      
+      g2.setColor( new Color(251,193,115) );
+      g2.fillRect(0,100,900,800);  // the sand
+   
+      g2.fill(new Arc2D.Double(100, 70, 80, 100, 0, 180, Arc2D.PIE));//sand dunes  
+      g2.fill(new Arc2D.Double(700, 70, 120, 100, 0, 180, Arc2D.PIE));
+      g2.fill(new Arc2D.Double(220, 70, 80, 100, 0, 180, Arc2D.PIE)); 
+      g2.fill(new Arc2D.Double(400, 80, 100, 150, 0, 180, Arc2D.PIE));
+
+      
       g2.transform(objectTransform);
      
 
