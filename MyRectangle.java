@@ -97,7 +97,11 @@ public class MyRectangle extends Polygon {
 
   public void makeShape (int sides){//NOT INITIALIZE
   	if(sides==0){
-			curve = true;
+  		body.addPoint(startX,startY);
+		body.addPoint(startX,startY+bodyH);
+		body.addPoint(startX+bodyW, startY+bodyH);
+		body.addPoint(startX+bodyW,startY);
+		curve = true;
   	}
 	  if (sides == 4){
 			body.addPoint(startX,startY);
@@ -113,12 +117,7 @@ public class MyRectangle extends Polygon {
 			body.addPoint(startX+bodyW,startY+bodyH);
 			body.addPoint(startX+bodyW,+bodyH/2);
 			
-			body.addPoint(startX+bodyW/2, startY);
-			
-			
-
-		
-	       	 	
+			body.addPoint(startX+bodyW/2, startY); 	
  	 	}
 
   	if (sides == 6){
@@ -169,15 +168,17 @@ public class MyRectangle extends Polygon {
       g2.setColor(color);
       if(!curve){
         g2.fillPolygon(body);
+        g2.setColor(Color.DARK_GRAY);
+   	  g2.setStroke( new BasicStroke(2) );
+   	  g2.draw(body);
       }
       else{
-    	  g2.setColor(Color.green);
-        g2.fill(new Arc2D.Double(0, 0, 50, 100, 0, 180, Arc2D.PIE));   
+	g2.setColor(Color.DARK_GRAY);
+        g2.fill(new Arc2D.Double(-5,-5, 80, 120, 0, 180, Arc2D.PIE));
+        g2.setStroke( new BasicStroke(20) );
+        g2.drawLine(0, 0, 10, 10); 
       }
       
-       g2.setColor(Color.DARK_GRAY);
- 	  g2.setStroke( new BasicStroke(2) );
- 	  g2.draw(body);
  	  
        if(selected){ 
     	     	  g2.setColor(Color.black);
@@ -200,13 +201,8 @@ public class MyRectangle extends Polygon {
          int CS_y = startY;
          //System.out.println("rect top left corner " + CS_x + " "+ CS_y);
 
-         g2.setStroke(wideStroke);
-         // y-axis in green
-         g2.setColor(GREEN);
-         g2.drawLine(CS_x, CS_y+COORD_LENGTH, CS_x, CS_y-COORD_LENGTH);
-         // x-axis in orange 
-         g2.setColor(ORANGE);
-         g2.drawLine(CS_x+COORD_LENGTH, CS_y, CS_x-COORD_LENGTH, CS_y);
+         g2.setColor(Color.ORANGE);
+         g2.fill( new Ellipse2D.Double(CS_x,CS_y,10,10) );
       }
 
       /*

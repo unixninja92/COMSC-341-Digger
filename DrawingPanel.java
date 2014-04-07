@@ -66,6 +66,8 @@ import java.io.*;
 
    private boolean rotated;
    
+   private int frameNumber; // For animation, increases by 1 in each frame.
+   
    // Used for simple selection
    // Click with button1 anywhere on JComponent selects the entire object (simple minded)
    // Provided code does not include checking if mouse click is inside a shape
@@ -102,6 +104,15 @@ import java.io.*;
       init();
       objectTransform.translate(Digger.FRAME_WIDTH/3, 2*Digger.FRAME_HEIGHT/3);//100.0, 100.0);
       rotated = false;
+
+      
+       new Timer(60,new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+             frameNumber++;
+             repaint();
+          }
+       }).start();
+       addMouseListener(this);
    }
 
    /*
@@ -134,9 +145,9 @@ import java.io.*;
       trans3.rotate(Math.PI/8.0);
       scalarArm = new MyRectangle(trans3, 150, 40, YELLOW, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
-      AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
+      AffineTransform trans4 = AffineTransform.getTranslateInstance(135.0, 0);
       //trans4.rotate(Math.PI/8.0);
-      //THE width and  height is currently preset so it doesn't matter what you pass it
+      //THE width and  height is currently preset so it doesn't matter wat you pass it
       bentArm = new MyRectangle(trans4, 0, 0, YELLOW, scalarArm, 6, BENT_ARM); 
       scalarArm.addChild(bentArm); 
       AffineTransform trans5 = AffineTransform.getTranslateInstance(40.0, 150.0);
@@ -171,9 +182,21 @@ import java.io.*;
       g2.fill(new Arc2D.Double(400, 80, 100, 150, 0, 180, Arc2D.PIE));
 
       
+       AffineTransform t = AffineTransform.getTranslateInstance(0, 100);
+	  g2.transform(t);
+	  drawBottle(g2);
+	  
+	 try {
+			g2.transform(t.createInverse());
+		} catch (NoninvertibleTransformException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     
+      
       g2.transform(objectTransform);
-     drawWindow(g2);
-
+      drawWindow(g2);
+     
       // Start painting with displayRoot, which inside its paint
       // method paints its own children (single child in our case)
       if (displayRoot != null) {
@@ -182,6 +205,16 @@ import java.io.*;
        g2.draw(new Rectangle2D.Double(71, 35, 50, 20));
       drawWheel(g2);
       
+       AffineTransform current = g2.getTransform();
+     try {
+		AffineTransform inv = current.createInverse();
+		g2.transform(inv);
+	} catch (NoninvertibleTransformException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	drawClouds(g2);
+      
       g2.dispose(); //release the copy's resources
    }
 
@@ -189,8 +222,8 @@ import java.io.*;
 	  Polygon poly = new Polygon();
 	  
 	  poly.addPoint(20,-WHEEL*2);
-	  poly.addPoint(0,10);
-	  poly.addPoint(120,10);
+	  poly.addPoint(0,40);
+	  poly.addPoint(180,40);
 	  poly.addPoint(80,-WHEEL*2);
 	
 	  g2.setColor(Color.LIGHT_GRAY);
@@ -213,11 +246,52 @@ import java.io.*;
 	      g2.fill( new Ellipse2D.Double(15,WHEEL-25,80,80) );
 	      g2.fill( new Ellipse2D.Double(155,WHEEL,60,60) );
 
-	      g2.setColor(Color.YELLOW);
+	      g2.setColor(Color.ORANGE);
 	      g2.fill( new Ellipse2D.Double(25,WHEEL-15,60,60) );
 	      g2.fill( new Ellipse2D.Double(165,WHEEL+10,40,40) );
 
 	   }
+	   
+	   private void drawBottle(Graphics2D g2){
+		 Polygon poly = new Polygon();
+
+		  poly.addPoint(400,80);
+		  poly.addPoint(400,90);
+		  poly.addPoint(390,100);
+		  poly.addPoint(390,110);
+		 
+		  poly.addPoint(415,110);
+		  poly.addPoint(415,100);
+		  poly.addPoint(405,90);
+		  poly.addPoint(405,80);
+		 
+		 g2.setColor(Color.white);
+		 g2.fill(poly);
+	 }
+	 
+	  public void drawClouds(Graphics2D g2){
+	   g2.setColor(Color.WHITE);
+	   
+	   g2.fill( new Ellipse2D.Double(500,10,10,10) );//stationary clouds
+	   g2.fill( new Ellipse2D.Double(505,5,15,15) );
+	   g2.fill( new Ellipse2D.Double(515,10,10,10) );
+	   
+	   g2.fill( new Ellipse2D.Double(200,20,15,15) );//stationary clouds
+	   g2.fill( new Ellipse2D.Double(210,10,25,25) );
+	   g2.fill( new Ellipse2D.Double(230,20,15,15) );
+	   
+	   
+	   g2.translate(-50+30*(frameNumber % 300) / 10, 0);//animation for moving clouds
+	   g2.fill( new Ellipse2D.Double(5,10,10,10) );
+	   g2.fill( new Ellipse2D.Double(10,5,15,15) );
+	   g2.fill( new Ellipse2D.Double(20,10,10,10) );
+	   
+	   g2.fill( new Ellipse2D.Double(100,20,10,10) );
+	   g2.fill( new Ellipse2D.Double(105,15,15,15) );
+	   g2.fill( new Ellipse2D.Double(115,20,10,10) );
+	   
+   }
+   
 
    /*
     * Create new list of events when recording is started
@@ -348,12 +422,7 @@ import java.io.*;
          // selected = ALL_OBJECT;
       }
    }
-   //public void findChild(int x, int y){}
-   /*
-    * When the main object is selected (see above) dragging the mouse 
-    * drags the main object by updating the transformation applied to 
-    * it (objectTransform)
-    */
+   
    
    public void mouseDragged(MouseEvent e){
       if (isRecording)
