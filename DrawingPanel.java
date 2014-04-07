@@ -50,6 +50,8 @@ import java.io.*;
    private MyRectangle displayRoot = null;
    private MyRectangle base = null;
    private MyRectangle scalarArm = null;
+   private MyRectangle bentArm = null;
+   private MyRectangle bucket = null;
 
    // Handle transformation on the entire object, i.e. the digger
    private AffineTransform objectTransform = new AffineTransform();
@@ -118,16 +120,16 @@ import java.io.*;
       displayRoot.addChild(base);   
       AffineTransform trans3 = AffineTransform.getTranslateInstance(95.0, 0);
       trans3.rotate(Math.PI/8.0);
-      MyRectangle scalarArm = new MyRectangle(trans3, 150, 50, BLUE, base, 4);
+      scalarArm = new MyRectangle(trans3, 150, 50, BLUE, base, 4);
       base.addChild(scalarArm); 
       AffineTransform trans4 = AffineTransform.getTranslateInstance(95.0, 0);
       //trans4.rotate(Math.PI/8.0);
       //THE width and  height is currently preset so it doesn't matter what you pass it
-      MyRectangle bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6); 
+      bentArm = new MyRectangle(trans4, 0, 0, BLUE, scalarArm, 6); 
       scalarArm.addChild(bentArm); 
       AffineTransform trans5 = AffineTransform.getTranslateInstance(60.0, 150.0);
       trans5.rotate(-Math.PI);
-      MyRectangle bucket = new MyRectangle(trans5, 50, 50, BLUE, bentArm, 5);
+      bucket = new MyRectangle(trans5, 50, 50, BLUE, bentArm, 5);
       bentArm.addChild(bucket);
    }
 
