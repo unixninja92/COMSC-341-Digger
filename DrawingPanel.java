@@ -85,6 +85,7 @@ import java.io.*;
    private int selected = NONE;
    private int lastX, lastY;
    private int rotateNumScale = 0;
+   private int rotateNumBent = 0;
 
   private static final int WHEEL=70;
 
@@ -459,10 +460,12 @@ import java.io.*;
       }
       else if (selected == BENT_ARM) {
     		AffineTransform transTemp = bentArm.getTrans();//testing the rotation
-    		if(lastY - e.getY() > 0){
+    		if(lastY - e.getY() > 0 && rotateNumBent < 35){
+          rotateNumBent++;
     			transTemp.rotate(-Math.PI/90.0);
     		}
-    		if(lastY - e.getY() < 0){
+    		if(lastY - e.getY() < 0 && rotateNumBent >= 0){
+          rotateNumBent--;
     			transTemp.rotate(Math.PI/90.0);
     		}
     	}
