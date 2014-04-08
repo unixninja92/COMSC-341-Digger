@@ -86,6 +86,7 @@ import java.io.*;
    private int lastX, lastY;
    private int rotateNumScale = 0;
    private int rotateNumBent = 0;
+   private int rotateNumBucket = 0;
 
   private static final int WHEEL=70;
 
@@ -486,7 +487,8 @@ import java.io.*;
       else if (selected == BUCKET) {
   		//make the scaling keyboard controlled
     		AffineTransform transTemp = bucket.getTrans();
-    		if(lastY - e.getY() > 0){
+    		if(lastY - e.getY() > 0 && rotateNumBucket < 25){
+          rotateNumBucket++;
     			transTemp.rotate(-Math.PI/90.0);
     			
     			//I believe for this code to work the bottle bounds must be pushed through the inverse trans
@@ -496,7 +498,8 @@ import java.io.*;
     	    		   System.out.println("You grabbed bottle!");
     	    	  }
     		}
-    		if(lastY - e.getY() < 0){
+    		if(lastY - e.getY() < 0 && rotateNumBucket > -65){
+          rotateNumBucket--;
     			transTemp.rotate(Math.PI/90.0);
     		
     			if(bucket.getBody().contains(pInv2)){
