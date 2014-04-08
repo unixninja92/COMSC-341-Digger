@@ -2,7 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
 import java.util.*;
+
 import javax.swing.*;
+
 import java.io.*;
 
 
@@ -430,14 +432,16 @@ import java.io.*;
          events.add(e);
       
       Point2D pInv;
-
-        try {
-          pInv = objectTransform.inverseTransform(new Point2D.Double(bottle.getBounds2D().getCenterX(),bottle.getBounds2D().getCenterX()), null);
+      Point2D pInv2;
+      AffineTransform inv = null;
+        try {//the line below stores the center x and y of the bottle's rectangle after transform
+          pInv = objectTransform.inverseTransform(new Point2D.Double(bottle.getBounds2D().getCenterX(),bottle.getBounds2D().getCenterY()), null);
+          inv = bucket.getTrans().createInverse();
         } catch (NoninvertibleTransformException er) {
           er.printStackTrace();
           return;
         }
-
+        pInv2 = inv.transform(pInv,null);
       if (selected == BASE || selected == ROOT) {
          AffineTransform trans = AffineTransform.getTranslateInstance(e.getX() - lastX,e.getY() - lastY);
          objectTransform.concatenate(trans);
@@ -453,7 +457,7 @@ import java.io.*;
     	}
   	
       else if (selected == SCALE_ARM) {
-  		//scalnig keyboard controlled
+  		//scaling keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
@@ -469,14 +473,14 @@ import java.io.*;
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
     			//I believe for this code to work the bottle bounds must be pushed through the inverse trans
-    			if(bucket.getBody().contains(pInv)){
+    			if(bucket.getBody().contains(pInv2)){
     	    		   //bottle.reset();
     	    		   System.out.println("You grabbed bottle!");
     	    	  }
     		}
     		if(lastY - e.getY() < 0){
     			transTemp.rotate(Math.PI/90.0);
-    			if(bucket.getBody().contains(pInv)){
+    			if(bucket.getBody().contains(pInv2)){
  	    		   //bottle.reset();
  	    		   System.out.println("You grabbed bottle!");
     			}
