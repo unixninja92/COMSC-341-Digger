@@ -57,6 +57,7 @@ import java.io.*;
    private MyRectangle bucket = null;
 
    private Polygon bottle;
+   boolean botSelected = false;
    private MyRectangle selectedRect = null;
 
    // Handle transformation on the entire object, i.e. the digger
@@ -157,6 +158,7 @@ import java.io.*;
      // trans5.rotate(-Math.PI);
       bucket = new MyRectangle(trans5, 50, 50, Color.LIGHT_GRAY, bentArm, 0, BUCKET);
       bentArm.addChild(bucket);
+      makeBottle();
    }
 
    public void paintComponent(Graphics g) {
@@ -255,7 +257,7 @@ import java.io.*;
 
 	   }
 	   
-	   private void drawBottle(Graphics2D g2){
+	 private void makeBottle(){
 		 bottle = new Polygon();
 
 		  bottle.addPoint(400,80);
@@ -267,9 +269,17 @@ import java.io.*;
 		  bottle.addPoint(415,100);
 		  bottle.addPoint(405,90);
 		  bottle.addPoint(405,80);
-		 
+	 }
+	 
+	   private void drawBottle(Graphics2D g2){
+		if(!botSelected){
 		 g2.setColor(Color.white);
 		 g2.fill(bottle);
+		}else{
+			 g2.setColor( new Color(251,193,115) );
+			 g2.fill(bottle);
+
+		}
 	 }
 	 
 	  public void drawClouds(Graphics2D g2){
@@ -472,16 +482,19 @@ import java.io.*;
     		AffineTransform transTemp = bucket.getTrans();
     		if(lastY - e.getY() > 0){
     			transTemp.rotate(-Math.PI/90.0);
+    			
     			//I believe for this code to work the bottle bounds must be pushed through the inverse trans
     			if(bucket.getBody().contains(pInv2)){
     	    		   //bottle.reset();
+    					botSelected=true;
     	    		   System.out.println("You grabbed bottle!");
     	    	  }
     		}
     		if(lastY - e.getY() < 0){
     			transTemp.rotate(Math.PI/90.0);
+    		
     			if(bucket.getBody().contains(pInv2)){
- 	    		   //bottle.reset();
+    				botSelected=true;
  	    		   System.out.println("You grabbed bottle!");
     			}
     		}
