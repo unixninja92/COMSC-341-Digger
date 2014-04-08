@@ -83,6 +83,7 @@ import java.io.*;
    private static final int BUCKET = 3;
    private int selected = NONE;
    private int lastX, lastY;
+   private int rotateNumScale = 0;
 
   private static final int WHEEL=70;
 
@@ -145,7 +146,7 @@ import java.io.*;
       base = new MyRectangle(trans2, 100, 40, YELLOW, displayRoot, 4, BASE);
       displayRoot.addChild(base);   
       AffineTransform trans3 = AffineTransform.getTranslateInstance(95.0, 0);
-      trans3.rotate(Math.PI/8.0);
+      trans3.rotate(Math.PI/4.0);
       scalarArm = new MyRectangle(trans3, 150, 40, YELLOW, base, 4, SCALE_ARM);
       base.addChild(scalarArm); 
       AffineTransform trans4 = AffineTransform.getTranslateInstance(135.0, 0);
@@ -459,10 +460,12 @@ import java.io.*;
       else if (selected == SCALE_ARM) {
   		//scaling keyboard controlled
     		AffineTransform transTemp = base.getChild().getTrans();
-    		if(lastY - e.getY() > 0){
+    		if(lastY - e.getY() > 0 && rotateNumScale < 5){
+          rotateNumScale++;
     			transTemp.rotate(-Math.PI/90.0);
     		}
-    		if(lastY - e.getY() < 0){
+    		if(lastY - e.getY() < 0 && rotateNumScale > -35){
+          rotateNumScale--;
     			transTemp.rotate(Math.PI/90.0);
     		}
       }
