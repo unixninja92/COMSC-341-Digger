@@ -87,7 +87,7 @@ import java.io.*;
    private int rotateNumScale = 0;
    private int rotateNumBent = 0;
    private int rotateNumBucket = 0;
-
+   private int scaleNumArm = 0;
   private static final int WHEEL=70;
 
    // Used for recording and replay
@@ -544,15 +544,17 @@ import java.io.*;
   public void keyPressed(KeyEvent e) {
   	System.out.println(e.getKeyChar());  
   	System.out.println("slected: "+selected);
-  	  if(selected == SCALE_ARM){
+  	  if(selected == SCALE_ARM ){
   		  AffineTransform transTemp = scalarArm.getTrans();
   		  AffineTransform limitTemp = scalarArm.getChild().getTrans();
-  		  if(e.getKeyChar() == 'l'){
-          System.out.println("Pressed l");
+  		  if(e.getKeyChar() == 'l' && scaleNumArm<6){
+          System.out.println("Pressed l" );
+          	  scaleNumArm++;
   			  transTemp.scale(1.05,1);
   			  limitTemp.scale(.95, 1);
   		  }
-  		  else if(e.getKeyChar() == 'k'){
+  		  else if(e.getKeyChar() == 'k' && scaleNumArm>-2){
+  			  scaleNumArm--;
   			  transTemp.scale(.95,1);
   			  limitTemp.scale(1.05, 1);
   		  }
