@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.util.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -109,12 +109,12 @@ import java.io.*;
       rotated = false;
 
       
-     /*  new Timer(60,new ActionListener() {
+       new Timer(60,new ActionListener() {
           public void actionPerformed(ActionEvent evt) {
              frameNumber++;
              repaint();
           }
-       }).start();*/
+       }).start();
        addMouseListener(this);
    }
 
